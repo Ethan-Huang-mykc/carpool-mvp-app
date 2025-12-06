@@ -40,13 +40,14 @@ def find_carpool_route(origin, destination, waypoints):
 
 st.set_page_config(page_title="简易拼车行程计算器", layout="wide")
 
-st.title("🚗 城际拼车行程计算器 (MVP)")
+st.title("🚗 城际拼车行程计算器 (MVP)") # <-- 确保标题在外面
 st.markdown("---")
 
-st.header("1. 行程路线输入")
+# 将整个表单放在外面，确保它能被初次渲染
 
-# 使用 form 结构收集数据，统一提交
 with st.form("carpool_form"):
+    st.header("1. 行程路线输入") # <-- 确保 header 在外面
+    
     col1, col2 = st.columns(2)
     
     with col1:
@@ -57,23 +58,25 @@ with st.form("carpool_form"):
 
     st.subheader("2. 途经点/乘客接送点 (选填)")
     
-    # 允许多个途经点输入，用逗号分隔
     waypoints_input = st.text_area("中途接送点 (用逗号分隔)", 
                                    placeholder="例如：东莞市虎门站, 广州南站")
 
+    # 按钮也必须在 form 内部，但后续显示结果的代码要在 form 外部
     submitted = st.form_submit_button("📐 计算最佳路线")
 
+
+# 👇👇👇 只有当按钮被点击时，才执行计算和结果展示 👇👇👇
 if submitted:
     if not origin or not destination:
         st.error("请输入完整的起点和终点！")
     else:
-        # 清理途经点输入
+        # 清理途经点输入 (确保这块代码是正确的)
         waypoints_list = [w.strip() for w in waypoints_input.split(',') if w.strip()]
         
         st.subheader("--- 计算结果 ---")
         
         with st.spinner("正在调用路径优化算法..."):
-            # 调用核心计算函数
+            # 调用核心计算函数 (此处仍使用模拟函数)
             distance, duration, map_link = find_carpool_route(origin, destination, waypoints_list)
         
         if distance:
@@ -90,3 +93,5 @@ if submitted:
             st.markdown(f"**[点击查看详细地图路线 (模拟链接)]({map_link})**")
         else:
             st.error("计算失败，请检查地址输入是否有效。")
+
+# ... (确保你在 find_carpool_route 函数中返回了有效值，哪怕是模拟的) ...
