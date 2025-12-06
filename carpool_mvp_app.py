@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import streamlit as st
 import pandas as pd
 
@@ -43,7 +44,7 @@ st.set_page_config(page_title="简易拼车行程计算器", layout="wide")
 st.title("🚗 城际拼车行程计算器 (MVP)") # <-- 确保标题在外面
 st.markdown("---")
 
-# 将整个表单放在外面，确保它能被初次渲染
+#git add . 将整个表单放在外面，确保它能被初次渲染
 
 with st.form("carpool_form"):
     st.header("1. 行程路线输入") # <-- 确保 header 在外面
